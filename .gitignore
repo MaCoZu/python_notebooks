@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.envrc
+.python-version
+mypy.ini
 
 # C extensions
 *.so
