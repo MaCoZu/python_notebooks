@@ -347,7 +347,7 @@ def profile_code():
 """
 PERFORMANCE CHECKLIST (in priority order):
 
-1. ✓ Is it vectorizable? 
+1. ✓ Is it vectorizable?
    → Use NumPy/Pandas operations instead of loops
 
 2. ✓ Are you iterating in Python?
@@ -402,9 +402,7 @@ def efficient_data_pipeline_example():
     high_return_days = df[df["returns"] > 0.02]
 
     # 4. Group operations (optimized internally)
-    category_stats = df.groupby("category").agg(
-        {"price": ["mean", "std"], "volume": "sum"}
-    )
+    category_stats = df.groupby("category").agg({"price": ["mean", "std"], "volume": "sum"})
 
     # 5. Avoid unnecessary copies - work in-place when possible
     df["normalized"] = (df["price"] - df["price"].mean()) / df["price"].std()

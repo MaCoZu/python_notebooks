@@ -89,21 +89,19 @@ coords: tuple[int, int] = (10, 20)
 unique: set[str] = {"a", "b"}
 
 ## Optional (can be None)
-from typing import Optional
 
-middle_name: Optional[str] = None  # same as str | None
+middle_name: str | None = None  # same as str | None
 
 ## Union (multiple types)
-from typing import Union
 
-id: Union[int, str] = "abc123"  # same as int | str
+id: int | str = "abc123"  # same as int | str
 
 ## Any (escape hatch - any type allowed)
 from typing import Any
 
 data: Any = "whatever"  # defeats type checking
 
-from typing import Callable
+from collections.abc import Callable
 
 callback: Callable[[int, str], bool]  # takes int, str; returns bool
 
@@ -299,9 +297,7 @@ list_2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 solution_1 = list(set(list_2) - set(list_1))
 solution_2 = list(set(list_1) ^ set(list_2))  # symmetric difference operator (^)
-solution_3 = list(
-    set(list_1).symmetric_difference(set(list_2))
-)  # symmetric difference methods
+solution_3 = list(set(list_1).symmetric_difference(set(list_2)))  # symmetric difference methods
 
 print(f"Solution 1: {solution_1}")
 print(f"Solution 2: {solution_2}")
@@ -458,7 +454,7 @@ names = ["Alice", "Bob", "Charlie"]
 scores2 = [85, 90, 78]
 
 
-for name, score in zip(names, scores2):
+for name, score in zip(names, scores2, strict=False):
     print(f"{name} scored {score}")
 
 # ----------------------------------------------------------------------------------------

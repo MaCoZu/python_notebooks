@@ -16,9 +16,10 @@ Why Polars?
 import time
 from functools import wraps
 
+import polars as pl
+
 import numpy as np
 import pandas as pd
-import polars as pl
 
 # =============================================================================
 # TIMER DECORATOR - To compare Pandas vs Polars performance
@@ -103,9 +104,7 @@ def lazy_vs_eager_execution():
     )
 
     # EAGER execution (immediate)
-    result_eager = (
-        df.filter(pl.col("value") > 0).group_by("category").agg(pl.col("value").mean())
-    )
+    result_eager = df.filter(pl.col("value") > 0).group_by("category").agg(pl.col("value").mean())
     print("Eager result:")
     print(result_eager)
     print()
@@ -124,10 +123,7 @@ def lazy_vs_eager_execution():
 
     # You can see the optimized query plan
     query_plan = (
-        df.lazy()
-        .filter(pl.col("value") > 0)
-        .group_by("category")
-        .agg(pl.col("value").mean())
+        df.lazy().filter(pl.col("value") > 0).group_by("category").agg(pl.col("value").mean())
     )
     print("Query plan (shows optimizations):")
     print(query_plan.explain())
@@ -375,12 +371,11 @@ def common_operations_cheatsheet():
 # 6. PERFORMANCE COMPARISON - Pandas vs Polars
 # =============================================================================
 
+
 @timer
 def pandas_operations(df):
     """Typical Pandas operations"""
-    result = (
-        df[df["value"] > 50].groupby("category").agg({"value": ["mean", "sum", "std"]})
-    )
+    result = df[df["value"] > 50].groupby("category").agg({"value": ["mean", "sum", "std"]})
     return result
 
 
@@ -454,6 +449,7 @@ def performance_comparison():
     print("\nResults are equivalent:")
     print(polars_lazy_result)
 
+
 performance_comparison()
 # =============================================================================
 # 7. MEMORY EFFICIENCY
@@ -486,6 +482,7 @@ def memory_comparison():
     print(f"Polars memory: {polars_memory:.2f} MB")
     print(f"Polars saves:  {(1 - polars_memory / pandas_memory) * 100:.1f}%")
     print()
+
 
 memory_comparison()
 
@@ -554,9 +551,7 @@ def advanced_polars_patterns():
 @timer
 def pandas_data_pipeline():
     """Typical data analysis pipeline in Pandas"""
-    df = pd.read_csv(
-        "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/tips.csv"
-    )
+    df = pd.read_csv("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/tips.csv")
 
     result = (
         df.assign(tip_pct=lambda x: x["tip"] / x["total_bill"] * 100)
@@ -568,14 +563,14 @@ def pandas_data_pipeline():
     )
     return result
 
+
 pandas_data_pipeline()
+
 
 @timer
 def polars_data_pipeline():
     """Same pipeline in Polars - faster and cleaner"""
-    df = pl.read_csv(
-        "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/tips.csv"
-    )
+    df = pl.read_csv("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/tips.csv")
 
     result = (
         df.lazy()
@@ -593,6 +588,7 @@ def polars_data_pipeline():
         .collect()
     )
     return result
+
 
 polars_data_pipeline()
 
@@ -612,7 +608,8 @@ def practical_examples():
     polars_result = polars_data_pipeline()
     print(polars_result.head())
     print()
-    
+
+
 practical_examples()
 
 # =============================================================================
@@ -627,38 +624,38 @@ def print_quick_reference():
     ╔══════════════════════════════════════════════════════════════════════════╗
     ║                     POLARS QUICK REFERENCE                               ║
     ╚══════════════════════════════════════════════════════════════════════════╝
-    
+
     CREATE DATAFRAME
     ────────────────
     pl.DataFrame({'col': [1, 2, 3]})
     pl.read_csv('file.csv')
     pl.from_pandas(pandas_df)
-    
+
     LAZY EXECUTION (recommended for complex queries)
     ────────────────
     df.lazy()                    # Convert to lazy
     .filter(...)                 # Add operations
     .collect()                   # Execute
-    
+
     SELECT COLUMNS
     ──────────────
     df.select(['col1', 'col2'])
     df.select([pl.col('col1'), pl.col('col2')])
     df.select(pl.all())          # All columns
     df.select(pl.col('^.*_id$')) # Regex selection
-    
+
     FILTER ROWS
     ───────────
     df.filter(pl.col('age') > 25)
     df.filter((pl.col('age') > 25) & (pl.col('city') == 'NYC'))
-    
+
     ADD/MODIFY COLUMNS
     ──────────────────
     df.with_columns([
         (pl.col('a') + pl.col('b')).alias('sum'),
         pl.col('name').str.to_uppercase().alias('NAME')
     ])
-    
+
     GROUP BY & AGGREGATE
     ────────────────────
     df.group_by('category').agg([
@@ -666,17 +663,17 @@ def print_quick_reference():
         pl.col('value').sum().alias('total'),
         pl.count().alias('count')
     ])
-    
+
     SORT
     ────
     df.sort('col1')
     df.sort('col1', descending=True)
     df.sort(['col1', 'col2'])
-    
+
     JOIN
     ────
     df1.join(df2, on='id', how='inner')  # inner, left, outer, cross
-    
+
     WINDOW FUNCTIONS
     ────────────────
     df.with_columns([
@@ -684,25 +681,25 @@ def print_quick_reference():
         pl.col('value').shift(1),
         pl.col('value').rank()
     ])
-    
+
     CONDITIONALS
     ────────────
     pl.when(pl.col('age') > 18)
       .then(pl.lit('adult'))
       .otherwise(pl.lit('minor'))
-    
+
     NULL HANDLING
     ─────────────
     df.fill_null(0)              # Replace nulls
     df.drop_nulls()              # Drop rows with nulls
     pl.col('col').is_null()      # Check for nulls
-    
+
     STRING OPERATIONS
     ─────────────────
     pl.col('name').str.to_uppercase()
     pl.col('name').str.contains('pattern')
     pl.col('name').str.replace('old', 'new')
-    
+
     COMMON AGGREGATIONS
     ───────────────────
     pl.col('value').sum()
@@ -711,7 +708,7 @@ def print_quick_reference():
     pl.col('value').min() / .max()
     pl.col('value').quantile(0.5)  # Median
     pl.count()                      # Row count
-    
+
     PERFORMANCE TIPS
     ────────────────
     ✓ Use .lazy() for complex queries (auto-optimized)
