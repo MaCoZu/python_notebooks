@@ -1,0 +1,35 @@
+"""Shared pytest fixtures."""
+
+import pandas as pd
+import pytest
+
+
+@pytest.fixture
+def sample_df() -> pd.DataFrame:
+    """Sample DataFrame for testing."""
+    return pd.DataFrame(
+        {
+            "First Name": ["Alice", "Bob", "Charlie"],
+            "Last-Name": ["Smith", "Jones", "Brown"],
+            " Age ": [25, 30, 35],
+            "Score": [85.5, 90.0, 88.5],
+        }
+    )
+
+
+@pytest.fixture
+def df_with_missing() -> pd.DataFrame:
+    """DataFrame with missing values."""
+    return pd.DataFrame(
+        {
+            "a": [1.0, 2.0, None, 4.0],
+            "b": [None, None, None, None],  # All missing
+            "c": [5.0, 6.0, 7.0, 8.0],
+        }
+    )
+
+
+@pytest.fixture
+def numeric_series() -> pd.Series:
+    """Numeric series for testing."""
+    return pd.Series([1, 2, 2, 3, 3, 3, 4, 100], name="values")
