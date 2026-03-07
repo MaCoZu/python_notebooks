@@ -61,18 +61,18 @@ def basic_dataframe_creation():
     print()
 
     # From lists
-    df_lists = pl.DataFrame(
+    pl.DataFrame(
         [["Alice", 25, "NYC"], ["Bob", 30, "LA"], ["Charlie", 35, "Chicago"]],
         schema=["name", "age", "city"],
     )
 
     # From numpy array
     arr = np.random.randn(5, 3)
-    df_numpy = pl.DataFrame(arr, schema=["col1", "col2", "col3"])
+    pl.DataFrame(arr, schema=["col1", "col2", "col3"])
 
     # From Pandas (conversion)
     pdf = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
-    df_from_pandas = pl.from_pandas(pdf)
+    pl.from_pandas(pdf)
 
     # Read CSV (fast!)
     # df_csv = pl.read_csv('file.csv')
@@ -161,7 +161,7 @@ def pandas_vs_polars_syntax():
     # Polars: df.select() with expressions
     polars_select = plf.select(["name", "age"])
     # Or using pl.col() for more power
-    polars_select2 = plf.select([pl.col("name"), pl.col("age")])
+    plf.select([pl.col("name"), pl.col("age")])
 
     print("Pandas select:")
     print(pandas_select.head())
@@ -254,7 +254,7 @@ def polars_expressions_guide():
     )
 
     # Basic column selection
-    result1 = df.select([pl.col("product"), pl.col("price")])
+    df.select([pl.col("product"), pl.col("price")])
 
     # Column operations
     result2 = df.select(
@@ -324,16 +324,16 @@ def common_operations_cheatsheet():
     )
 
     # SELECT columns
-    select = df.select(["id", "value"])
+    df.select(["id", "value"])
 
     # FILTER rows
     filter_result = df.filter(pl.col("value") > 50)
 
     # SORT
-    sorted_df = df.sort("value", descending=True)
+    df.sort("value", descending=True)
 
     # ADD columns with with_columns()
-    with_cols = df.with_columns(
+    df.with_columns(
         [
             (pl.col("value") * 2).alias("double_value"),
             (pl.col("value") / 100).alias("normalized"),
@@ -341,18 +341,18 @@ def common_operations_cheatsheet():
     )
 
     # RENAME columns
-    renamed = df.rename({"value": "amount", "category": "type"})
+    df.rename({"value": "amount", "category": "type"})
 
     # DROP columns
-    dropped = df.drop(["category"])
+    df.drop(["category"])
 
     # UNIQUE values
     unique_categories = df["category"].unique()
 
     # NULL handling
     df_with_nulls = pl.DataFrame({"a": [1, 2, None, 4], "b": [None, 2, 3, 4]})
-    filled = df_with_nulls.fill_null(0)  # Replace nulls with 0
-    dropped_nulls = df_with_nulls.drop_nulls()  # Remove rows with any null
+    df_with_nulls.fill_null(0)  # Replace nulls with 0
+    df_with_nulls.drop_nulls()  # Remove rows with any null
 
     # JOIN (like SQL)
     df1 = pl.DataFrame({"id": [1, 2, 3], "value": [10, 20, 30]})
@@ -438,10 +438,10 @@ def performance_comparison():
 
     # Run comparisons
     print("1. Pandas operations:")
-    pandas_result = pandas_operations(pdf)
+    pandas_operations(pdf)
 
     print("2. Polars eager operations:")
-    polars_eager_result = polars_operations_eager(plf)
+    polars_operations_eager(plf)
 
     print("3. Polars lazy operations (optimized):")
     polars_lazy_result = polars_operations_lazy(plf)

@@ -1,8 +1,8 @@
 """Tests for cleaning utilities."""
 
-import pandas as pd
 import pytest
 
+import pandas as pd
 from utils.cleaning import clean_columns, clean_text, handle_missing
 
 

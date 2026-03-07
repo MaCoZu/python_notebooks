@@ -392,8 +392,12 @@ print(Lst[::-1])
 
 (lambda x, y: x**y)(5, 3)  # lambda arguments: expression
 
+
 # can be assigned to a variable
-square = lambda x: x**2
+def square(x):
+    return x**2
+
+
 square(5)
 
 

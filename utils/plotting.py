@@ -3,8 +3,9 @@
 from typing import Any
 
 import matplotlib.pyplot as plt
-import pandas as pd
 import seaborn as sns
+
+import pandas as pd
 
 
 def quick_hist(

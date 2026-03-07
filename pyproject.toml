@@ -64,6 +64,10 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # unused imports in __init__.py
 "tests/*" = ["N802", "F401"]
+# Tutorial/example files can have intentional patterns
+"python/Python_tricks.py" = ["E402", "RUF003", "E731"]
+"python/Python_2.0_perfomance.py" = ["PTH123", "F821", "F841"]
+"pandas/polars_cheatsheet.py" = ["F841"]
 
 [tool.mypy]
 python_version = "3.14"
@@ -77,6 +81,11 @@ ignore_missing_imports = true
 [[tool.mypy.overrides]]
 module = "tests.*"
 disallow_untyped_defs = false
+disable_error_code = ["misc"]
+
+[[tool.mypy.overrides]]
+module = ["python.*", "pandas.*"]
+follow_imports = "skip"
 
 [[tool.mypy.overrides]]
 module = "utils.*"

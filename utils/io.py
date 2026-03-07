@@ -19,7 +19,7 @@ def read_csv_auto(filepath: str | Path, **kwargs: Any) -> pd.DataFrame:
     Example:
         >>> df = read_csv_auto("data/myfile.csv")
     """
-    df: pd.DataFrame = pd.read_csv(filepath, **kwargs)  # type: ignore[assignment]
+    df: pd.DataFrame = pd.read_csv(filepath, **kwargs)
 
     # Strip whitespace from string columns
     str_cols = df.select_dtypes(include=["object"]).columns

@@ -1,13 +1,17 @@
 """Shared pytest fixtures."""
 
-import pandas as pd
+from collections.abc import Iterator
+from typing import Any
+
 import pytest
+
+import pandas as pd
 
 
 @pytest.fixture
-def sample_df() -> pd.DataFrame:
+def sample_df() -> Iterator[pd.DataFrame]:
     """Sample DataFrame for testing."""
-    return pd.DataFrame(
+    yield pd.DataFrame(
         {
             "First Name": ["Alice", "Bob", "Charlie"],
             "Last-Name": ["Smith", "Jones", "Brown"],
@@ -18,9 +22,9 @@ def sample_df() -> pd.DataFrame:
 
 
 @pytest.fixture
-def df_with_missing() -> pd.DataFrame:
+def df_with_missing() -> Iterator[pd.DataFrame]:
     """DataFrame with missing values."""
-    return pd.DataFrame(
+    yield pd.DataFrame(
         {
             "a": [1.0, 2.0, None, 4.0],
             "b": [None, None, None, None],  # All missing
@@ -30,6 +34,6 @@ def df_with_missing() -> pd.DataFrame:
 
 
 @pytest.fixture
-def numeric_series() -> pd.Series:
+def numeric_series() -> Iterator[pd.Series[Any]]:
     """Numeric series for testing."""
-    return pd.Series([1, 2, 2, 3, 3, 3, 4, 100], name="values")
+    yield pd.Series([1, 2, 2, 3, 3, 3, 4, 100], name="values")

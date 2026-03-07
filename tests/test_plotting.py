@@ -1,8 +1,8 @@
 """Tests for plotting utilities."""
 
-import pandas as pd
 import pytest
 
+import pandas as pd
 from utils.plotting import correlation_heatmap, quick_hist
 
 

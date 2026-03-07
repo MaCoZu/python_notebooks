@@ -77,7 +77,7 @@ def pandas_vectorization_examples(df):
     df["rolling_mean"] = df["price"].rolling(window=7).mean()
 
     # FAST - Boolean indexing instead of filtering with loops
-    high_prices = df[df["price"] > 100]
+    df[df["price"] > 100]
 
     return df
 
@@ -90,7 +90,7 @@ def pandas_vectorization_examples(df):
 def memory_efficient_operations():
     # SLOW - Creates unnecessary copies
     arr = np.arange(1000000)
-    arr_copy = arr.copy()  # Full copy in memory
+    arr.copy()  # Full copy in memory
 
     # FAST - NumPy view (shares memory, no copy)
     arr_view = arr[::2]  # Every second element, just a view
@@ -101,7 +101,7 @@ def memory_efficient_operations():
     df["c"] = df["a"] + df["b"]  # Adds column in-place, no copy
 
     # FAST - query() is often more efficient than boolean indexing
-    result = df.query("a > 500")  # Less memory overhead
+    df.query("a > 500")  # Less memory overhead
 
     return arr, df
 
@@ -125,10 +125,10 @@ def data_structure_performance():
 
     # FAST - Dict for lookups instead of scanning lists
     lookup = {i: f"value_{i}" for i in range(10000)}
-    result = lookup.get(5000)  # O(1) vs O(n) list scan
+    lookup.get(5000)  # O(1) vs O(n) list scan
 
     # Use NumPy for numerical data (not Python lists)
-    numerical_data = np.array(data)  # More memory efficient, faster operations
+    np.array(data)  # More memory efficient, faster operations
 
     # For large datasets: Polars > Pandas (faster, less memory)
     # import polars as pl
@@ -176,7 +176,7 @@ def optimize_attribute_access():
         append(item)
 
     # BEST - Use list comprehension or vectorization when possible
-    result = [item for item in large_list]
+    result = list(large_list)
 
 
 # =============================================================================
@@ -193,18 +193,18 @@ def use_builtins():
     #     total += x
 
     # FAST - Built-in function in C
-    total = sum(data)
-    maximum = max(data)
-    minimum = min(data)
+    sum(data)
+    max(data)
+    min(data)
 
     # any() and all() short-circuit (stop early when possible)
-    has_negative = any(x < 0 for x in data)
-    all_positive = all(x >= 0 for x in data)
+    any(x < 0 for x in data)
+    all(x >= 0 for x in data)
 
     # itertools for efficient iteration patterns
     from itertools import islice
 
-    first_100 = list(islice(data, 100))  # More efficient than data[:100] for iterators
+    list(islice(data, 100))  # More efficient than data[:100] for iterators
 
 
 # =============================================================================
@@ -305,7 +305,7 @@ def generator_examples():
     large_data = range(1000000)
     squared = (x * x for x in large_data)  # Generator, not list
     # Only computes values when needed
-    first_100_squares = list(itertools.islice(squared, 100))
+    list(itertools.islice(squared, 100))
 
 
 # =============================================================================
@@ -399,7 +399,7 @@ def efficient_data_pipeline_example():
     df["high_volume"] = df["volume"] > df["volume"].quantile(0.75)
 
     # 3. Efficient filtering with boolean indexing
-    high_return_days = df[df["returns"] > 0.02]
+    df[df["returns"] > 0.02]
 
     # 4. Group operations (optimized internally)
     category_stats = df.groupby("category").agg({"price": ["mean", "std"], "volume": "sum"})

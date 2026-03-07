@@ -2,9 +2,9 @@
 
 from pathlib import Path
 
-import pandas as pd
 import pytest
 
+import pandas as pd
 from utils.io import read_csv_auto, save_results
 
 

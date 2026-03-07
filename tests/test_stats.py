@@ -1,8 +1,8 @@
 """Tests for statistical utilities."""
 
-import pandas as pd
 import pytest
 
+import pandas as pd
 from utils.stats import describe_numeric, detect_outliers
 
 
@@ -28,7 +28,7 @@ def test_detect_outliers_iqr(numeric_series: pd.Series) -> None:
     """Test IQR outlier detection."""
     outliers = detect_outliers(numeric_series, method="iqr", threshold=1.5)
     # 100 should be detected as an outlier
-    assert outliers.iloc[-1] == True
+    assert outliers.iloc[-1]
     # Other values should not be outliers
     assert outliers.iloc[:-1].sum() == 0
 
@@ -37,7 +37,7 @@ def test_detect_outliers_zscore(numeric_series: pd.Series) -> None:
     """Test z-score outlier detection."""
     outliers = detect_outliers(numeric_series, method="zscore", threshold=2.0)
     # 100 should be detected as an outlier
-    assert outliers.iloc[-1] == True
+    assert outliers.iloc[-1]
 
 
 def test_detect_outliers_invalid_method(numeric_series: pd.Series) -> None:
