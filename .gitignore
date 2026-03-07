@@ -164,3 +164,27 @@ cython_debug/
 
 # custom
 /data
+
+# UV
+uv.lock
+
+# Ruff
+.ruff_cache/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Data files
+data/
+*.csv
+*.xlsx
+*.parquet
+
+# But keep test fixtures
+!tests/fixtures/*.csv
+
+# Logs
+*.log
+
+# OS
+.DS_Store
