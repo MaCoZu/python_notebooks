@@ -3,7 +3,7 @@
 A comprehensive monorepo for learning Python and data science, organized for efficiency and best practices.
 
 ## Structure
-
+- **marimo** - interactive notebooks with marimo
 - **pandas/** - DataFrame manipulation and analysis
 - **numpy/** - Array computing and numerical operations
 - **python/** - Core Python language features
@@ -29,6 +29,10 @@ make pre-commit-setup
 # Run all checks
 make all
 ```
+
+## Marimo
+# create a new marimo notebook
+uv run marimo edit ./marimo/filename.py
 
 ## Development Workflow
 

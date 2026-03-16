@@ -22,7 +22,7 @@ def read_csv_auto(filepath: str | Path, **kwargs: Any) -> pd.DataFrame:
     df: pd.DataFrame = pd.read_csv(filepath, **kwargs)
 
     # Strip whitespace from string columns
-    str_cols = df.select_dtypes(include=["object"]).columns
+    str_cols = df.select_dtypes(include=["object", "string"]).columns
     df[str_cols] = df[str_cols].apply(lambda x: x.str.strip())
 
     return df
