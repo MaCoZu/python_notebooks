@@ -17,6 +17,7 @@ dependencies = [
     "pandasql>=0.7.3",
     "summarytools>=0.3.0",
     "skimpy>=0.0.20",
+    "xlrd>=2.0.2",
 ]
 
 [project.optional-dependencies]

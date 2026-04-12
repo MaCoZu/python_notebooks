@@ -180,6 +180,14 @@ data/
 *.xlsx
 *.parquet
 
+# images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+
 # But keep test fixtures
 !tests/fixtures/*.csv
 
